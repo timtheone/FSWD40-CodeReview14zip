@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-sm navbar-light mb-3">
+  <div class="container">
+      <a href="/" class="navbar-brand">Big Events</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+          <span class="navbar-toggle-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mobile-nav"></div>
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                  <a href="/" class="nav-link">Home</a>
+              </li>
+              {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+              <li class="nav-item">
+                  <a href="/sign_in" class="nav-link">Log in</a>
+              </li>
+              <li class="nav-item">
+                  <a href="/sign_up" class="nav-link">Register</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                  <a href="{{ path('sign_out') }}" class="nav-link">Logout</a>
+              </li>
+              {% endif %}
+              {% if is_granted('ROLE_ADMIN') %}
+              <li class="nav-item">
+                  <a href="{{ path('event_new') }}" class="nav-link">Add new Event</a>
+              </li>
+              {% endif %}
+              
+          </ul>
+  </div>
+</nav>

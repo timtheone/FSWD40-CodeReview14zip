@@ -69,7 +69,7 @@ class Event
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private $type;    
 
     public function getId()
     {

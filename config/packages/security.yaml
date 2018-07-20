@@ -1,24 +1,33 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
     providers:
-        in_memory: { memory: ~ }
+        sign_in_provider:
+            entity:
+                class: App\Entity\User
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
+            form_login:
+                login_path: sign_in
+                check_path: sign_in
+                provider: sign_in_provider
+            logout:
+                path: /sign_out
+                target: /
 
-            # activate different ways to authenticate
 
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/sign_in, allow_if: "is_authenticated() == false" }
+        - { path: ^/sign_up,  allow_if: "is_authenticated() == false"}
+        - { path: ^/event/edit/(.+), roles: ROLE_ADMIN}
+        - { path: ^/event/delete/(.+), roles: ROLE_ADMIN}
+        - { path: ^/event/new, roles: ROLE_ADMIN}

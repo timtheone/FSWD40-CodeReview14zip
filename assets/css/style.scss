@@ -1,1 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
+
+table{
+    table-layout: fixed;
+    td {
+        word-wrap:break-word 
+    }
+}
+
+.img-left {
+    img {
+        width:100%;
+    }
+}
