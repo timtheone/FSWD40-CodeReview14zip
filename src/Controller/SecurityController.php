@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 
+use App\Form\UserType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,30 +38,26 @@ class SecurityController extends Controller
      */
     public function sign_up(Request $request, UserPasswordEncoderInterface $passwordEncoder){
         $user = new User();
+        $user->setRoles('ROLE_USER');
 
-        $form = $this->createFormBuilder($user)
-        ->add('username', TextType::class, array(
-            'attr' => array('class' => 'form-control')))
-        ->add('email', EmailType::class, array(
-            'attr' => array('class' => 'form-control')))
-        ->add('password', PasswordType::class, array('attr' => array('class' => 'form-control')))
-        ->add('save', SubmitType::class, array('label'=> 'Sign up', 'attr' => array('class'=> 'btn btn-primary mt-5')))
-        ->getForm();
+        // $form = $this->createFormBuilder($user)
+        // ->add('username', TextType::class, array(
+        //     'attr' => array('class' => 'form-control')))
+        // ->add('email', EmailType::class, array(
+        //     'attr' => array('class' => 'form-control')))
+        // ->add('password', PasswordType::class, array('attr' => array('class' => 'form-control')))
+        // ->add('save', SubmitType::class, array('label'=> 'Sign up', 'attr' => array('class'=> 'btn btn-primary mt-5')))
+        // ->getForm();
+
+        $form = $this->createForm(UserType::class, $user);
 
         $form -> handleRequest($request);
 
         if($form -> isSubmitted() && $form -> isValid()){
-            $username = $form['username'] -> getData();
-            $email = $form['email'] -> getData();
             $password = $form['password'] -> getData();
-
-            $user = new User();
-            $user->setUsername($username);
             $user->setPassword(
                 $passwordEncoder->encodePassword($user, $password)
             );
-            $user->setEmail($email);
-            $user->setRoles('ROLE_USER');
 
             $EntityManager = $this -> getDoctrine() -> getManager();
             $EntityManager -> persist($user);

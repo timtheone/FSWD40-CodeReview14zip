@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-lg-4 img-left">
-            <img src="http://via.placeholder.com/350x150" alt="">
+            <img src="{{ asset('images/' ~ event.image ) }}">
         </div>
         <div class="col-lg-8">
             <table class="table">
@@ -26,10 +26,6 @@
                     <tr>
                         <th>Description</th>
                         <td>{{ event.description }}</td>
-                    </tr>
-                    <tr>
-                        <th>Image</th>
-                        <td>{{ event.image }}</td>
                     </tr>
                     <tr>
                         <th>Capacity</th>

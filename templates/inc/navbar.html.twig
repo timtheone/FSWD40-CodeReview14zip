@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-sm navbar-light mb-3">
   <div class="container">
       <a href="/" class="navbar-brand">Big Events</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-          <span class="navbar-toggle-icon"></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="mobile-nav"></div>
+      <div class="collapse navbar-collapse" id="mobile-nav">
           <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                   <a href="/" class="nav-link">Home</a>
@@ -27,7 +27,7 @@
                   <a href="{{ path('event_new') }}" class="nav-link">Add new Event</a>
               </li>
               {% endif %}
-              
           </ul>
+        </div>
   </div>
 </nav>
